@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Turf Polygon</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+  <style>
+	  body { margin:0; padding:0; }
+	  #mapid { position:absolute; top:150px; bottom:0; width:100%; }
+  </style>
+</head>
+<body>
+  <div>
+	<pre>
+	const poly = turf.polygon(
+	[
+		[
+		  [-122.38,47.57], [-122.28,47.57], [-122.28,47.62], [-122.38,47.62], [-122.38,47.57]
+		]
+	], { name: 'Seattle Box' });
+	const newLayers = window.L.geoJSON(poly).addTo(theMap);
+	theMap.fitBounds(newLayers.getBounds());
+	</pre>
+  </div>
+  <div id='mapid'></div>
+	<script>
+		// List of base tiles available
+		// http://wiki.openstreetmap.org/wiki/Tile_servers      
+		//const blackWhite = 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png';      
+		const tileUrl = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';            
+		const theMap = L.map('mapid').setView([47.59909, -122.33136], 13);
+		L.tileLayer(tileUrl, {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+		'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+		}).addTo(theMap); 
+
+		const poly = turf.polygon(
+		[
+			[
+			  [-122.38,47.57], [-122.28,47.57], [-122.28,47.62], [-122.38,47.62], [-122.38,47.57]
+			]
+		], { name: 'Seattle Box' });
+		const newLayers = window.L.geoJSON(poly).addTo(theMap);
+		theMap.fitBounds(newLayers.getBounds());
+	</script>
+</body>
+</html>
